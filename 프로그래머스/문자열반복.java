@@ -1,4 +1,4 @@
-package solving.Programmers;
+package 프로그래머스;
 import java.util.*;
 
 public class 문자열반복 {

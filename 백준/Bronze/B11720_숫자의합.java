@@ -1,4 +1,4 @@
-package solving.BOJ;
+package 백준.Bronze;
 import java.util.Scanner;
 
 public class B11720_숫자의합 {

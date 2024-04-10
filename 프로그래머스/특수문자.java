@@ -1,4 +1,4 @@
-package solving.Programmers;
+package 프로그래머스;
 
 public class 특수문자 {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package solving.BOJ;
+package 백준.Bronze;
 import java.util.*;
 
 public class B1546_평균 {

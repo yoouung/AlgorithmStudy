@@ -1,4 +1,4 @@
-package solving.SWExpert;
+package SWExpert;
 
 import java.util.*;
 

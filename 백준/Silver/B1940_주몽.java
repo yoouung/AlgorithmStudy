@@ -1,4 +1,4 @@
-package solving.BOJ;
+package 백준.Silver;
 
 import java.io.*;
 import java.util.*;
