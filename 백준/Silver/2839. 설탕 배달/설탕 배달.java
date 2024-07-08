@@ -5,23 +5,24 @@ public class Main {
     Scanner sc = new Scanner(System.in);
     int N = sc.nextInt();
 
-    int count = 0;
-
-    while (N >= 0) {
-      if (N % 5 == 0) {
-        count += N / 5;
-        N = 0;
-        break;
-      } else {
-        N -= 3;
-        count += 1;
+    int INF = 5001; // 최댓값
+    int[] dp = new int[N + 1];
+    Arrays.fill(dp, INF);
+    dp[0] = 0;
+    
+    for (int i = 1; i < N + 1; i++) {
+      if (i >= 3) {
+        dp[i] = Math.min(dp[i], dp[i - 3] + 1);
+      }
+      if (i >= 5) {
+        dp[i] = Math.min(dp[i], dp[i - 5] + 1);
       }
     }
 
-    if (N == 0) {
-      System.out.println(count);
-    } else {
+    if (dp[N] == INF) {
       System.out.println(-1);
+    } else {
+      System.out.println(dp[N]);
     }
   }
 }
