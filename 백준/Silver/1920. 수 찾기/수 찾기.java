@@ -4,44 +4,46 @@ import java.io.*;
 public class Main {
   public static void main(String[] args) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    
+
     int N = Integer.parseInt(br.readLine());
-    int[] base = new int[N];
-    String[] input = br.readLine().split(" ");
+    StringTokenizer st = new StringTokenizer(br.readLine());
+    int[] nlist = new int[N];
     for (int i = 0; i < N; i++) {
-      base[i] = Integer.parseInt(input[i]);
+      nlist[i] = Integer.parseInt(st.nextToken());
     }
-    Arrays.sort(base);
+    Arrays.sort(nlist);
 
     int M = Integer.parseInt(br.readLine());
-    int[] targetNums = new int[M];
-    String[] input2 = br.readLine().split(" ");
+    st = new StringTokenizer(br.readLine());
     for (int i = 0; i < M; i++) {
-      targetNums[i] = Integer.parseInt(input2[i]);
+      int target = Integer.parseInt(st.nextToken());
+
+      boolean isFound = findValue(target, nlist);
+      System.out.println(isFound ? 1 : 0);
+    }
+  }
+  
+  static boolean findValue(int target, int[] list) {
+
+    if (target < list[0] | target > list[list.length - 1]) {
+      return false;
     }
 
-    for (int i = 0; i < M; i++) {
-      int target = targetNums[i];
+    int start = 0;
+    int end = list.length - 1;
 
-      int start = 0;
-      int end = base.length - 1;
-      boolean isExist = false;
+    while (start <= end) {
+      int current = (start + end) / 2;
       
-      while (start <= end) {
-        int mid = (start + end) / 2;
-
-        if (base[mid] == target) {
-          isExist = true;
-          break;
-        } else if (base[mid] < target) {
-          start = mid + 1;
-        } else {
-          end = mid - 1;
-        }
+      if (target == list[current]) {
+        return true;
+      } else if (target < list[current]) {
+        end = current - 1;
+      } else if (target > list[current]) {
+        start = current + 1;
       }
-
-      System.out.println(isExist ? 1 : 0);
-
     }
-  } 
-}
+
+    return false;
+  }
+} 
