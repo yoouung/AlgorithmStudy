@@ -7,6 +7,7 @@ public class Main {
 
   public static void main(String[] args) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    StringBuilder sb = new StringBuilder();
     
     StringTokenizer st = new StringTokenizer(br.readLine());
     char[] king = st.nextToken().toCharArray();
@@ -29,8 +30,8 @@ public class Main {
       }
     }
 
-    System.out.println(king);
-    System.out.println(stone);
+    sb.append(king).append("\n").append(stone);
+    System.out.println(sb.toString());
   }
 
   static boolean isInRange(char[] next) {
