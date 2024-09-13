@@ -48,11 +48,11 @@ public class Main {
     int count = 0;
     while (!rollcakes.isEmpty()) {
       int rollcake = rollcakes.poll();
-      
+
       if (rollcake < 10) {
         continue;
-      } 
-      
+      }
+
       while (rollcake >= 10 && M >= 0) {
         if (rollcake == 10) {
           count++;
