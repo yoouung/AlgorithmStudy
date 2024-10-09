@@ -1,39 +1,38 @@
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-
   static int N;
-  static int[][] stats;
+  static int[][] scores;
   static boolean[] visited;
-
   static int min = Integer.MAX_VALUE;
 
   public static void main(String[] args) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
     N = Integer.parseInt(br.readLine());
-
-    stats = new int[N][N];
+    scores = new int[N][N];
     visited = new boolean[N];
 
     for (int i = 0; i < N; i++) {
       StringTokenizer st = new StringTokenizer(br.readLine());
       for (int j = 0; j < N; j++) {
-        stats[i][j] = Integer.parseInt(st.nextToken());
+        scores[i][j] = Integer.parseInt(st.nextToken());
       }
     }
 
     backtracking(0, 0);
     System.out.println(min);
-
   }
-  
-  static void backtracking(int index, int depth) {
-    if (depth == N / 2) {
-      min = Math.min(diff(), min);
 
-      if (min == 0) {
+  static void backtracking(int index, int depth) { // depth는 스타트팀에 몇명 넣었는지
+    if (depth == N / 2) {
+      min = Math.min(min, calculateDiff());
+
+      if (min == 0) { // 더이상 작아질 수 없을 떄 early return 해주기 -> 시간복잡도 해결
+        System.out.println(min);
+        System.exit(0);
         return;
       }
     }
@@ -42,30 +41,25 @@ public class Main {
       if (!visited[i]) {
         visited[i] = true;
         backtracking(i + 1, depth + 1);
-        visited[i] = false; // 방문 이후에는 다시 비방문 처리
+        visited[i] = false;
       }
     }
-
   }
-  
-  // 두 팀의 능력치 차이 계산
-  static int diff() {
 
-    int startTeam = 0;
-    int linkTeam = 0;
+  static int calculateDiff() {
+    int start = 0;
+    int link = 0;
 
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < N - 1; i++) {
       for (int j = i + 1; j < N; j++) {
         if (visited[i] && visited[j]) {
-          startTeam += stats[i][j];
-          startTeam += stats[j][i];
+          start += scores[i][j] + scores[j][i];
         } else if (!visited[i] && !visited[j]) {
-          linkTeam += stats[i][j];
-          linkTeam += stats[j][i];
+          link += scores[i][j] + scores[j][i];
         }
       }
     }
 
-    return Math.abs(startTeam - linkTeam); // 절댓값
+    return Math.abs(start - link);
   }
 }
