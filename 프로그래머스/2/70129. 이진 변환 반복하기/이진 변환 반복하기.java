@@ -2,12 +2,12 @@ import java.util.*;
 
 class Solution {
     public int[] solution(String s) {
-        int[] answer = new int[2];
+        int[] answer = {};
         int countZero = 0;
         int countChange = 0;
         String current = new String(s);
         
-        while (!current.equals("1")) {
+        while (countChange < 4) {
             int countOne = 0;
             
             for (int i=0; i < current.length(); i++) {
@@ -18,11 +18,13 @@ class Solution {
                 }
             }
             current = Integer.toBinaryString(countOne);
+            System.out.println("countOne: " + countOne + "current: " + current);
             countChange++;
+            System.out.println(current.equals("1"));
         }
         
-        answer[0] = countChange;
-        answer[1] = countZero;
+        // answer[0] = countChange;
+        // answer[1] = countZero;
         return answer;
     }
 }
