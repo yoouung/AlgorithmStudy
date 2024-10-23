@@ -8,26 +8,40 @@ class Solution {
     // " " 은 String, ' '은 char
     
     public String solution(String s) {
-        StringBuilder sb = new StringBuilder();
+        String result = "";
+        String[] split = s.split("");
+        int count = 0;
         
-        int tempIndex = 0;
-        for (int i=0; i < s.length(); i++) {
-            char current = s.charAt(i);
-            
-            if (current == ' ') {
-                tempIndex = 0;
-                sb.append(current);
-                continue;
-            }
-            
-            if (tempIndex % 2 == 0) {
-                sb.append(Character.toUpperCase(current)); 
-            } else {
-                sb.append(Character.toLowerCase(current));
-            }
-            tempIndex++;
+        for (String ss: split) {
+            count = ss.equals(" ") ? 0 : count + 1;
+            result += count % 2 == 0 ? ss.toLowerCase() : ss.toUpperCase();
         }
         
-        return sb.toString();
+        return result;
     }
+    
+//     // 내 풀이
+//     public String solution(String s) {
+//         StringBuilder sb = new StringBuilder();
+        
+//         int tempIndex = 0;
+//         for (int i=0; i < s.length(); i++) {
+//             char current = s.charAt(i);
+            
+//             if (current == ' ') {
+//                 tempIndex = 0;
+//                 sb.append(current);
+//                 continue;
+//             }
+            
+//             if (tempIndex % 2 == 0) {
+//                 sb.append(Character.toUpperCase(current)); 
+//             } else {
+//                 sb.append(Character.toLowerCase(current));
+//             }
+//             tempIndex++;
+//         }
+        
+//         return sb.toString();
+//     }
 }
