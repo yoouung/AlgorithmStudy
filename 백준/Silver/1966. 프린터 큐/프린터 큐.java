@@ -15,7 +15,7 @@ public class Main {
       StringTokenizer st = new StringTokenizer(br.readLine());
       int N = Integer.parseInt(st.nextToken());
       int M = Integer.parseInt(st.nextToken());
-      Deque<Document> docs = new LinkedList<>();
+      Queue<Document> docs = new LinkedList<>();
 
       st = new StringTokenizer(br.readLine());
       for (int i=0; i<N; i++) {
