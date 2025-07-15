@@ -86,7 +86,7 @@ public class Main {
       for (Node nextNode : graph[currentIdx]) {
         int nextIdx = nextNode.endNode;
         long nextDist = nextNode.dist;
-        if (dist[currentIdx] + nextDist < dist[nextIdx] && !visited[nextIdx]) {
+        if (dist[currentIdx] + nextDist < dist[nextIdx]) {
           dist[nextIdx] = dist[currentIdx] + nextDist;
           pq.offer(new Node(nextIdx, dist[nextIdx]));
         }
@@ -95,3 +95,16 @@ public class Main {
     return dist;
   }
 }
+
+/* 방문한 노드를 스킵해도 안전한 이유
+귀납법으로 증명:
+- 기본 가정: 시작노드들의 거리는 0으로 확정
+- 귀납 가정: k번째까지 방문한 노드들은 모두 최단거리가 확정됨
+- 귀납 단계: (k+1)번째 노드도 최단거리가 확정됨을 보이자
+- 증명:
+우선순위 큐에서 꺼낸 노드 v의 거리를 d(v)라 하자
+만약 v로 가는 더 짧은 경로가 있다면, 그 경로상의 어떤 노드 u가 아직 방문되지 않았을 것
+하지만 u의 거리는 d(v)보다 작아야 하므로, u가 v보다 먼저 큐에서 꺼내져야 함
+이는 v가 지금 꺼내진다는 가정에 모순
+따라서 v의 거리는 이미 최단거리임
+ */
