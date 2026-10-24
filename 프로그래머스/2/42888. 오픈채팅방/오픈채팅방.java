@@ -15,19 +15,16 @@ class Solution {
         
         Map<String, String> nicknames = new HashMap<>(); // uid, nickname
         for (String message: record) {
-            String action = message.split(" ")[0];
-            String uid = message.split(" ")[1];
+            String[] parts = message.split(" "); // split 한번만
+            String action = parts[0];
+            String uid = parts[1];
             
             if (action.equals("Leave")) {
                 continue;
             }
             
-            String nickname = message.split(" ")[2];
-            if (nicknames.containsKey(uid)) {
-                nicknames.replace(uid, nickname);
-            } else {
-                nicknames.put(uid, nickname);
-            }
+            String nickname = parts[2];
+            nicknames.put(uid, nickname); // map은 동일한 key 존재하면 알아서 value 덮어씀
             
         }
         
@@ -46,9 +43,6 @@ class Solution {
             }
         }
         
-        String[] answer = new String[logs.size()];
-        answer = logs.toArray(answer);
-        
-        return answer;
+        return logs.toArray(new String[0]);
     }
 }
