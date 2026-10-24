@@ -22,29 +22,30 @@ class Solution {
     }
     
     public int solution(String begin, String target, String[] words) {    
-        boolean[] visited = new boolean[words.length];
-        
-        return bfs(begin, target, visited, words);
+        return bfs(begin, target, words);
     }
     
-    int bfs(String begin, String target, boolean[] visited, String[] words) {
+    int bfs(String begin, String target, String[] words) {
         Queue<Node> queue = new ArrayDeque<>();
+        boolean[] visited = new boolean[words.length];
+        
         queue.offer(new Node(begin, 0));
         
         while (!queue.isEmpty()) {
             Node current = queue.poll();
-            String cs = current.word;
-            int cc = current.count;
+            String currentWord = current.word;
+            int count = current.count;
             
-            if (cs.equals(target)) {
-                return cc;
-            }
-
             for (int i=0; i<words.length; i++) {
                 String ns = words[i];
-                if (!visited[i] && canChange(cs, ns)) {
+                if (!visited[i] && canChange(currentWord, ns)) {
+                    
+                    if (ns.equals(target)) {
+                        return count + 1;
+                    }
+                    
                     visited[i] = true;
-                    queue.offer(new Node(ns, cc + 1));
+                    queue.offer(new Node(ns, count + 1));
                 }
             }
         }
