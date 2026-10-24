@@ -59,11 +59,6 @@ class Solution {
             int current = currentNode.destination;
             int ctime = currentNode.time;
             
-            // 가장 첫 요소의 time이 이미 k 초과라면 더 볼 필요 없음
-            if (ctime > k) {
-                break;
-            }
-            
             // 이미 더 빠른 경로를 찾아둔 경우
             if (ctime > distance[current]) {
                 continue;
@@ -74,7 +69,7 @@ class Solution {
                 int ntime = node.time;
                 int timeSum = ctime + ntime;
                 
-                if (timeSum <= distance[next]) {
+                if (timeSum <= k && timeSum < distance[next]) {
                     distance[next] = timeSum;
                     pq.offer(new Node(next, timeSum));
                 }
