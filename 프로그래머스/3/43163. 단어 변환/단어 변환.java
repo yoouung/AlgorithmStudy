@@ -10,19 +10,24 @@ class Solution {
     */
     
     int result = Integer.MAX_VALUE;
-    int count = 0;
     
     public int solution(String begin, String target, String[] words) {    
         boolean[] visited = new boolean[words.length];
         
-        backtracking(begin, target, words, visited);
+        backtracking(begin, target, words, visited, 0);
+        
         if (result >= words.length) {
-            return 0;
+            return result == Integer.MAX_VALUE ? 0 : result;
         }
+        
         return result;
     }
     
-    void backtracking(String begin, String target, String[] words, boolean[] visited) {
+    void backtracking(String begin, String target, String[] words, boolean[] visited, int count) {
+        if (count >= result) {
+            return ;
+        }
+        
         if (begin.equals(target)) {
             result = Math.min(result, count);
             return;
@@ -32,10 +37,8 @@ class Solution {
             String next = words[i];
             if (!visited[i] && canChange(begin, next)) {
                 visited[i] = true;
-                count++;
-                backtracking(next, target, words, visited);
+                backtracking(next, target, words, visited, count + 1);
                 visited[i] = false;
-                count--;
             }
         }
         
@@ -47,10 +50,6 @@ class Solution {
     boolean canChange(String a, String b) {
         int diffCount = 0;
         
-        if (a.equals(b)) {
-            return true;
-        }
-        
         for (int i=0; i<a.length(); i++) {
             if (a.charAt(i) != b.charAt(i)) {
                 diffCount++;
@@ -60,9 +59,6 @@ class Solution {
             }
         }
         
-        if (diffCount <= 1) {
-            return true;
-        }
-        return false;
+        return diffCount == 1;
     }
 }
